@@ -1,10 +1,10 @@
 import './Title.css';
 
 
-function Title() {
+function Title(props) {
   return (
     <header className="Title">
-	<h1>Rollmania!</h1>
+	<h1>{props.text}mania!</h1>
     </header>
   );
 }
