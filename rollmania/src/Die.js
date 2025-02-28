@@ -1,22 +1,32 @@
 import './Die.css';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 
 function Die(props) {
 
-  let [number, setNumber] = useState("-")
-  let [roll, setRoll] = useState(false)
+  let [number, setNumber] = useState("-");
 
-  function randomRoll(max) {
-    return Math.floor(Math.random() * max);
-}
+  const randomized = useRef(false);
 
-  function set_random() {
-    setNumber(randomRoll(6)+1);
+  useEffect (() => {
+    if (number != "-")
+      props.onResult(number);
+  });
+
+  function get_random() {
+    return Math.floor(Math.random() * 6) + 1;
   }
 
-  if (props.roll){
-    number = set_random();
+  function set_random() {
+    let randomNumber = get_random();
+    setNumber(randomNumber);
+  }
+
+
+  if (props.roll && !randomized.current){
+    set_random();
+
+    randomized.current = true;
   }
 
   return (

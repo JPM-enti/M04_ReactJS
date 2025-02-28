@@ -1,12 +1,11 @@
-.Title {
+.Playername {
 	display:flex;
 	flex-direction:column;
 	flex-wrap:wrap;
 	justify-content:center;
 	align-items:center;
-	background-color:#000;
-	color:#fff;
 	font-size:24px;
 	font-weight:bold;
 	padding: 10px;
+	margin-bottom: 10px;
 }

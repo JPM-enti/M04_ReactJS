@@ -1,29 +1,44 @@
 import './App.css';
 import Dice from './Dice.js';
 import Title from './Title.js';
-import Roll from './Rollbutton.js';
+import RollButton from './Rollbutton.js';
 import Scores from './Scores.js';
-import { useState } from 'react';
+import PlayerName from './Playername.js';
+import { useState, useRef } from 'react';
 
 
 function App() {
 
- let [roll, setRoll] = useState(false);
+  const [roll, setRoll] = useState(false);
+
+  const playerName = useRef("");
+  const playerScore = useRef(0);
 
   function roll_dice() {
     setRoll(true);
   }
 
+  function setPlayerName (name) {
+    playerName.current = name;
+    console.log("El nombre del jugador es: "+name);
+  }
+
+  function setPlayerScore (total) {
+    playerScore.current = total;
+    console.log("Puntuacion total: "+total);
+  }
+
   return (
     <div className="rollmania">
-	<Title text="Atmosphere"/>
+	<Title text="Roll" subtitle="subtitulo"/>
+	<PlayerName onPlayerNameChange={setPlayerName}/>
     <main className="App">
-	<Dice quantity="3" roll={roll}/>
+	<Dice cantidad="5" roll={roll} onTotal={setPlayerScore}/>
     </main>
     <div className="Rollbutton">
-	<Roll roll_func={roll_dice}/>
+	<RollButton roll_func={roll_dice}/>
     </div>
-	<Scores />
+        <Scores puntuaciones="5" />
     </div>
   );
 }
