@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 
 function RollButton(props) {
 
+  let activo = props.activo;
   let [count, setCount] = useState(5);
 
   useEffect(() => {
@@ -15,7 +16,7 @@ function RollButton(props) {
   });
 
   return (
-    <button className="Rollbutton" onClick={props.roll_func} disabled={count > 0 ? "true" : ""}>
+    <button className="Rollbutton" onClick={props.roll_func} disabled={props.activo == "n" ? "disabled" : ""}>
 	{count > 0 ? count : "Roll!"}
     </button>
   );

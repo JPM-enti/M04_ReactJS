@@ -2,7 +2,7 @@
 
 function ScoreItem(props) {
   return (
-	  <li>Jugador/a: {props.scorePos}</li>
+	  <li>{props.player_name}: {props.player_score}</li>
   );
 }
 

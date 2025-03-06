@@ -1,25 +1,45 @@
 import './Scores.css';
 import ScoreItem from './ScoreItem.js';
+import { useState, useRef, useEffect} from 'react';
 
+function Scores(props) {
 
-function get_scores(quantity) {
-  let score_list = [];  
+  const [scores, setScores] = useState([]);
+  const last_score = useRef({});
 
-  for (let i = 0; i < quantity; i++){
-    score_list.push(<ScoreItem key={i} scorePos={i} />);
+  useEffect (() => {
+    if (props.add_score.nombre === null){
+      return;
+    }
+
+    if (props.add_score.nombre === last_score.current.nombre && props.add_score.score === last_score.current.score){
+      return;
+    }
+
+function get_scores() {
+  let scores_json = localStorage.getItem("scores");  
+  let score_list = [];
+
+  let scores_parsed = JSON.parse(scores_json);
+
+  for (let i = 0; i < scores_parsed.length; i++){
+    let name = scores_parsed[i].nombre;
+    let score = scores_parsed[i].score;
+
+    score_list.push(<ScoreItem player_name={name} player_score={score} key={i} />);
   }
   return score_list;
 }
 
-function Scores(props) {
   return (
     <section className="Scores">
 	<h2>Scores:</h2>
 	<ol>
-	  {get_scores(props.puntuaciones)}
+	  {get_scores()}
 	</ol>
     </section>
   );
+}
 }
 
 export default Scores;

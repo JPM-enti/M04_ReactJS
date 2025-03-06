@@ -10,9 +10,11 @@ import { useState, useRef } from 'react';
 function App() {
 
   const [roll, setRoll] = useState(false);
+  const [score, setScore] = useState({});
 
   const playerName = useRef("");
   const playerScore = useRef(0);
+  const botonActivo = useRef("n");
 
   function roll_dice() {
     setRoll(true);
@@ -26,6 +28,10 @@ function App() {
   function setPlayerScore (total) {
     playerScore.current = total;
     console.log("Puntuacion total: "+total);
+    if (playerName.current == ""){
+      alert("No hay nombre de jugador!!!");
+      return;
+    setScore({"nombre": playerName.current, "score": playerScore.current}); 
   }
 
   return (
@@ -36,9 +42,9 @@ function App() {
 	<Dice cantidad="5" roll={roll} onTotal={setPlayerScore}/>
     </main>
     <div className="Rollbutton">
-	<RollButton roll_func={roll_dice}/>
+	<RollButton roll_func={roll_dice} activo={botonActivo.current}/>
     </div>
-        <Scores puntuaciones="5" />
+        <Scores add_score={score}/>
     </div>
   );
 }
